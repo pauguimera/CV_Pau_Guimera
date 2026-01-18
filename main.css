@@ -1,0 +1,339 @@
+/*Variable*/
+:root{
+  --color-bg: #ffffff;
+  --color-sidebar: #0f1e3a;
+  --color-text: #222222;
+  --color-text-light: #f2f2f2;
+  --color-accent: #3b82f6;
+  --color-border: #000000;
+}
+* {
+  box-sizing: border-box;
+}
+/*base*/
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* pseudoelement per a cuan selecciones el text*/
+::selection {
+  background-color: var(--color-sidebar);
+  color: wheat;
+}
+
+.cv {
+  display: flex;
+  min-height: 100vh;
+  margin-top: 120px; 
+}
+/*coses en general del títol*/
+.top-header {
+  position: fixed;
+   top: 0;
+  left: 0;
+  width: 100%;
+
+  background: var(--color-sidebar);
+  color: var(--color-text-light);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  padding: 2rem 1rem;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 11;
+
+  animation-name: slide-down;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+/*Solucio per a cuan el títol em tapava la experiència, la formació i les habilitats */
+.block{
+  scroll-margin-top:130px;
+}
+.top-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+}
+
+.top-header .subtitle {
+  margin-top: 0.4rem;
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+
+
+/*Sidebar*/
+.sidebar {
+  width: 280px;
+  background: var(--color-sidebar);
+  color: var(--color-text-light);
+  padding: 2rem 1.5rem;
+}
+.profile-photo {
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 1rem;
+  object-fit: cover;
+}
+
+.birthdate {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.sidebar-title {
+  border-top: 1px solid var(--color-text-light);
+  padding-top: 1rem;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+.content {
+  flex: 1;
+  padding: 2.5rem;
+}
+
+/* Pseudoelement de punts al titol del sidebar */
+.sidebar-title::before {
+  content: "• ";
+  color: var(--color-accent);
+}
+
+
+/* Blocks */
+.block {
+  border-top: 2px solid var(--color-border);
+  padding-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.block h2 {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+
+.footer {
+  border-top: 1px solid var(--color-border);
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--color-text);
+}
+
+/*Two columns for tecnicall skills and idiomes*/
+
+.two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* responsive for tecnicall skills and idiomes */
+
+@media (max-width: 768px) {
+  .two-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*responsive general*/
+@media (max-width: 768px) {
+  .cv {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+}
+
+/* PRINT */
+@media print {
+  
+  .top-header {
+    position: static;
+    page-break-after: always;
+    display: block;
+  }
+
+  .cv {
+    margin-top: 0;
+    flex-direction: column;
+
+  }
+
+  #Navegacio_del_CV{
+    display: none;
+  }
+  /* Eliminar fons foscos i colors innecessaris */
+  .sidebar {
+    background: none;
+    color: black;
+    width: 100%;
+  }
+
+  /* Mostrar les URLs dels enllaços en impressió */
+  a::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+  }
+}
+
+/* Animation transició per enllaços */
+a {
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: #1e40af;
+}
+a:focus {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+
+
+/* Animation transició per a les seccions del lateral */
+.sidebar section {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sidebar section:hover {
+  transform: translateY(-3px);
+}
+
+/* Animation transició per columnes d'habilitats */
+.two-columns > div {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.two-columns > div:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* transition dels enllaços del menú lateral */
+.sidebar-nav a {
+  display: inline-block;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+.sidebar-nav a:hover {
+  transform: translateX(6px);
+}
+
+/* Desactivar hover del bloc pare per a la secció d'habilitats */
+.block.two-columns:hover {
+  transform: none;
+  box-shadow: none;
+}
+/*Animation d'entrada al header*/
+.top-header {
+  animation-name: slide-down;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+/* KEYFRAMES moviment del header a continuació de la animació del header que he posar anteriorment*/
+@keyframes slide-down {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* animation respiració suau de la foto */
+.profile-photo {
+  animation-name: pulse-photo;
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+/* keyframes  efecte de respiració */
+@keyframes pulse-photo {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* animation per als blocs principals */
+
+.block:hover {
+  animation-name: highlight-block;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+}
+
+/* keyframes destacat suau de blocs principals */
+@keyframes highlight-block {
+  0% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Formulari de contacte professional */
+form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+input[type="email"] {
+  padding: 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+button {
+  align-self: flex-start;
+  padding: 0.5rem 1.2rem;
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
